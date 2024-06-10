@@ -1,24 +1,24 @@
-package ru.calvian.state.repositories;
+package ru.totalcraftmc.statesplugin.dao;
 
 
-import ru.calvian.state.States;
+import jakarta.persistence.EntityManager;
+import ru.totalcraftmc.statesplugin.StatesPlugin;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
 import java.util.Collections;
 import java.util.List;
 
-abstract public class BaseRepository<T> {
+abstract public class BaseDAO<T> {
 
-    protected static final EntityManager entityManager = States.entityManager;
+    protected static final EntityManager entityManager = StatesPlugin.getEntityManager();
     private final T model;
 
 
-    public BaseRepository(T model) {
+    public BaseDAO(T model) {
         this.model = model;
     }
 

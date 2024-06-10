@@ -1,15 +1,15 @@
-package ru.calvian.state.commands.utils;
+package ru.totalcraftmc.statesplugin.commands;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
 import org.jetbrains.annotations.NotNull;
-import ru.calvian.state.States;
+import ru.totalcraftmc.statesplugin.StatesPlugin;
 
 public abstract class AbstractCommand implements CommandExecutor {
     public AbstractCommand(String command) {
-        PluginCommand pluginCommand = States.instance.getCommand(command);
+        PluginCommand pluginCommand = StatesPlugin.getInstance().getCommand(command);
         if (pluginCommand != null) {
             pluginCommand.setExecutor(this);
         }

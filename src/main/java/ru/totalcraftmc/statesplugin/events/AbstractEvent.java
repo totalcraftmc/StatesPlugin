@@ -1,4 +1,4 @@
-package ru.calvian.state.events;
+package ru.totalcraftmc.statesplugin.events;
 
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
