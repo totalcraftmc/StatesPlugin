@@ -1,0 +1,4 @@
+name: StatesPlugin
+version: '${version}'
+main: ru.totalcraftmc.statesplugin.StatesPlugin
+api-version: '1.20'
