@@ -7,11 +7,10 @@ import org.hibernate.jpa.HibernatePersistenceProvider;
 
 import java.util.Collections;
 
-@Getter
 public final class StatesPlugin extends JavaPlugin {
-
+    @Getter
     private static StatesPlugin instance;
-
+    @Getter
     private static final EntityManager entityManager = new HibernatePersistenceProvider().createEntityManagerFactory("persistence", Collections.emptyMap()).createEntityManager();
 
 
