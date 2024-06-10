@@ -9,17 +9,17 @@ import java.util.Collections;
 public final class StatesPlugin extends JavaPlugin {
 
     public static StatesPlugin instance;
-    public static EntityManager entityManager = new HibernatePersistenceProvider().createEntityManagerFactory("persistence", Collections.emptyMap()).createEntityManager();
+    public static EntityManager entityManager;
 
 
     @Override
     public void onEnable() {
         instance = this;
-
+        entityManager = new HibernatePersistenceProvider().createEntityManagerFactory("persistence", Collections.emptyMap()).createEntityManager();
     }
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+        entityManager.close();
     }
 }
