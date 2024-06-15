@@ -1,4 +1,4 @@
-package ru.totalcraftmc.statesplugin.dao;
+package ru.totalcraftmc.statesplugin.dao.utils;
 
 
 import jakarta.persistence.EntityManager;
@@ -9,6 +9,10 @@ import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.ParameterizedType;
 import java.util.Collections;
 import java.util.List;
 
@@ -18,8 +22,15 @@ abstract public class BaseDAO<T> {
     private final T model;
 
 
-    public BaseDAO(T model) {
-        this.model = model;
+    public BaseDAO() {
+        try {
+        Class<T> modelClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+        Constructor<T> constructor = modelClass.getDeclaredConstructor();
+        constructor.setAccessible(true);
+        model = constructor.newInstance();
+        } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void insert(T entity) {
@@ -32,7 +43,7 @@ abstract public class BaseDAO<T> {
             if (transaction.isActive()) {
                 transaction.rollback();
             }
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
@@ -46,7 +57,7 @@ abstract public class BaseDAO<T> {
             if (transaction != null && transaction.isActive()) {
                 transaction.rollback();
             }
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
@@ -60,7 +71,7 @@ abstract public class BaseDAO<T> {
             if (transaction.isActive()) {
                 transaction.rollback();
             }
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
